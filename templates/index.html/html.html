@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional Invoice Builder</title>
+    <!-- Tailwind CSS for modern styling -->
+    <script src="https://jsdelivr.net"></script>
+</head>
+<body class="bg-gray-50 min-h-screen font-sans">
+    <div class="max-w-4xl mx-auto py-10 px-4">
+        <header class="mb-8 text-center">
+            <h1 class="text-3xl font-bold text-blue-900">Invoice Studio MVP</h1>
+            <p class="text-gray-600 mt-1">Generate professional PDFs instantly</p>
+        </header>
+
+        <form action="/generate-pdf" method="POST" class="bg-white shadow-md rounded-lg p-6 space-y-6">
+            <!-- Business Info -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-1">Your Trading/Business Name</label>
+                    <input type="text" name="biz_name" placeholder="e.g., Cape Plumbing Solutions" required class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-blue-500">
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-1">Invoice Number</label>
+                    <input type="text" name="invoice_num" placeholder="e.g., INV-2026-001" required class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-blue-500">
+                </div>
+            </div>
+
+            <hr class="border-gray-200">
+
+            <!-- Client Info -->
+            <div>
+                <label class="block text-sm font-semibold text-gray-700 mb-1">Client / Customer Name</label>
+                <input type="text" name="client_name" placeholder="e.g., John Smith" required class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-blue-500">
+            </div>
+
+            <hr class="border-gray-200">
+
+            <!-- Line Items Area -->
+            <div>
+                <h3 class="text-md font-bold text-gray-800 mb-3">Line Items</h3>
+                <div id="items-container" class="space-y-3">
+                    <div class="grid grid-cols-12 gap-3 item-row">
+                        <div class="col-span-6">
+                            <input type="text" name="item_name[]" placeholder="Description of service/goods" required class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-blue-500">
+                        </div>
+                        <div class="col-span-2">
+                            <input type="number" name="item_qty[]" placeholder="Qty" min="1" value="1" required class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-blue-500">
+                        </div>
+                        <div class="col-span-4">
+                            <input type="number" step="0.01" name="item_price[]" placeholder="Price (R)" required class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-blue-500">
+                        </div>
+                    </div>
+                </div>
+                <button type="button" onclick="addItemRow()" class="mt-3 text-sm text-blue-600 hover:text-blue-800 font-medium">+ Add Another Item</button>
+            </div>
+
+            <hr class="border-gray-200">
+
+            <!-- Banking details -->
+            <div>
+                <label class="block text-sm font-semibold text-gray-700 mb-1">Payment Instructions / Banking Details</label>
+                <textarea name="bank_details" rows="3" placeholder="Bank: FNB&#10;Account Number: 123456789&#10;Branch Code: 250655" class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-blue-500"></textarea>
+            </div>
+
+            <!-- Submit Button -->
+            <div class="pt-4">
+                <button type="submit" class="w-full bg-blue-900 hover:bg-blue-800 text-white font-bold py-3 rounded-lg shadow transition duration-200">Generate & Download PDF Invoice</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        // Simple JavaScript helper to allow dynamic addition of rows
+        function addItemRow() {
+            const container = document.getElementById('items-container');
+            const newRow = document.createElement('div');
+            newRow.className = 'grid grid-cols-12 gap-3 item-row';
+            newRow.innerHTML = `
+                <div class="col-span-6">
+                    <input type="text" name="item_name[]" placeholder="Description of service/goods" required class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-blue-500">
+                </div>
+                <div class="col-span-2">
+                    <input type="number" name="item_qty[]" placeholder="Qty" min="1" value="1" required class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-blue-500">
+                </div>
+                <div class="col-span-4">
+                    <input type="number" step="0.01" name="item_price[]" placeholder="Price (R)" required class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-blue-500">
+                </div>
+            `;
+            container.appendChild(newRow);
+        }
+    </script>
+</body>
+</html>
