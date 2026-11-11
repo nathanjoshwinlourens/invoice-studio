@@ -4,17 +4,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Professional Invoice Builder</title>
-    <!-- Tailwind CSS for modern styling -->
     <script src="https://jsdelivr.net"></script>
 </head>
 <body class="bg-gray-50 min-h-screen font-sans">
+    <!-- Free Version Notification Bar -->
+    <div class="bg-blue-950 text-white text-center py-2 text-sm px-4 flex justify-between items-center shadow-md">
+        <span>🎉 Free Version Active (System Watermark Included)</span>
+        <button onclick="openEftModal()" class="bg-gradient-to-r from-yellow-500 to-amber-500 hover:from-yellow-600 hover:to-amber-600 text-blue-950 font-extrabold px-4 py-1.5 rounded shadow dynamic-pulse transition text-xs">Remove Watermark & Customise Branding (R49/mo)</button>
+    </div>
+
     <div class="max-w-4xl mx-auto py-10 px-4">
         <header class="mb-8 text-center">
-            <h1 class="text-3xl font-bold text-blue-900">Invoice Studio MVP</h1>
+            <h1 class="text-3xl font-bold text-blue-900">Invoice Studio Pro</h1>
             <p class="text-gray-600 mt-1">Generate professional PDFs instantly</p>
         </header>
 
         <form action="/generate-pdf" method="POST" class="bg-white shadow-md rounded-lg p-6 space-y-6">
+            <!-- Premium Locked Feature Visualizer -->
+            <div class="bg-blue-50/50 border border-dashed border-blue-300 rounded-lg p-4 text-center relative group">
+                <span class="text-blue-900 font-medium text-sm flex items-center justify-center gap-1">🔒 Custom Corporate Logo Upload</span>
+                <button type="button" onclick="openEftModal()" class="block mx-auto mt-1 text-xs text-blue-600 font-semibold hover:text-blue-800 underline">Unlock Premium Dashboard to upload company logos</button>
+            </div>
+
             <!-- Business Info -->
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
@@ -60,7 +71,7 @@
 
             <!-- Banking details -->
             <div>
-                <label class="block text-sm font-semibold text-gray-700 mb-1">Payment Instructions / Banking Details</label>
+                <label class="block text-sm font-semibold text-gray-700 mb-1">Payment Instructions / Banking Details (Printed on Invoice)</label>
                 <textarea name="bank_details" rows="3" placeholder="Bank: FNB&#10;Account Number: 123456789&#10;Branch Code: 250655" class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-blue-500"></textarea>
             </div>
 
@@ -71,8 +82,43 @@
         </form>
     </div>
 
+    <!-- Secure EFT Activation Modal Popup -->
+    <div id="eft-modal" class="fixed inset-0 bg-black/60 backdrop-blur-sm hidden items-center justify-center p-4 z-50">
+        <div class="bg-white rounded-xl shadow-2xl max-w-md w-full p-6 relative border border-gray-100 animate-fade-in">
+            <div class="text-center mb-4">
+                <h3 class="text-2xl font-bold text-gray-900 mb-1">Upgrade to Studio Pro 🚀</h3>
+                <p class="text-gray-600 text-sm">Remove the watermark and unlock premium layouts instantly via instant banking.</p>
+            </div>
+            
+            <div class="bg-blue-50 rounded-lg p-3 text-center mb-5 border border-blue-100">
+                <span class="text-3xl font-black text-blue-900">R49</span>
+                <span class="text-gray-500 text-sm">/ month</span>
+            </div>
+
+            <div class="space-y-3 text-sm text-gray-700 bg-gray-50 p-4 rounded-lg border border-gray-200 mb-5">
+                <div class="font-bold text-blue-900 border-b border-gray-200 pb-1 mb-2">📥 Secure EFT Payment Instructions:</div>
+                <div class="flex justify-between"><span>Bank:</span> <span class="font-semibold text-gray-900">[Your Bank Name]</span></div>
+                <div class="flex justify-between"><span>Account Number:</span> <span class="font-semibold text-gray-900">[Your Account Number]</span></div>
+                <div class="flex justify-between"><span>Branch Code:</span> <span class="font-semibold text-gray-900">[Your Branch Code]</span></div>
+                <div class="flex justify-between"><span>Reference:</span> <span class="font-semibold text-gray-900">Your Cell Number / Name</span></div>
+            </div>
+
+            <div class="text-xs text-center text-gray-500 mb-5 leading-relaxed">
+                💡 <b>How it activates:</b> Once you've sent your payment, click the button below to WhatsApp us your proof of payment (PoP). Our support engineers will toggle your account dashboard to Pro instantly!
+            </div>
+
+            <!-- Instant WhatsApp Routing Integration -->
+            <a href="https://wa.me!" target="_blank" class="block w-full text-center bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 rounded-lg shadow-md transition duration-200 mb-4">
+                💬 WhatsApp Proof of Payment
+            </a>
+            
+            <div class="text-center">
+                <button onclick="closeEftModal()" class="text-xs text-gray-400 hover:text-gray-600 transition underline">Cancel and stay on free tier</button>
+            </div>
+        </div>
+    </div>
+
     <script>
-        // Simple JavaScript helper to allow dynamic addition of rows
         function addItemRow() {
             const container = document.getElementById('items-container');
             const newRow = document.createElement('div');
@@ -89,6 +135,14 @@
                 </div>
             `;
             container.appendChild(newRow);
+        }
+
+        function openEftModal() {
+            document.getElementById('eft-modal').style.display = 'flex';
+        }
+
+        function closeEftModal() {
+            document.getElementById('eft-modal').style.display = 'none';
         }
     </script>
 </body>
